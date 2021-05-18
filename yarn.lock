@@ -889,14 +889,6 @@
     react-redux "^7.2.0"
     redux "^4.0.5"
 
-"@playkit-js/playkit-js@0.63.0":
-  version "0.63.0"
-  resolved "https://registry.yarnpkg.com/@playkit-js/playkit-js/-/playkit-js-0.63.0.tgz#01c073dc2067befe57cdca168ea54b8583e07a30"
-  integrity sha512-nJejwY2HQGk/imgqtkma79KOII4F2LIYm5E2irUJHv/8luflCuBwsihX/jD1H+kdkXvB5GjT9v2LHHHbfcj6Sg==
-  dependencies:
-    js-logger "^1.6.0"
-    ua-parser-js "^0.7.21"
-
 "@playkit-js/playkit-js@0.64.1":
   version "0.64.1"
   resolved "https://registry.yarnpkg.com/@playkit-js/playkit-js/-/playkit-js-0.64.1.tgz#12c8c12edd0cbe9ad2b0ac77a2fea2d32108a6e8"
@@ -8799,8 +8791,3 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
   integrity sha1-AI4G2AlDIMNy28L47XagymyKxBk=
-
-youboralib@6.7.11:
-  version "6.7.11"
-  resolved "https://registry.yarnpkg.com/youboralib/-/youboralib-6.7.11.tgz#1590b51683a699a5e249d92b5a72f93a5d78775a"
-  integrity sha512-WzeaC70WFpjxMA3T4NwxM5p2Wbu7J/FeocE5stCOQqR84bUKELGmuGl9BeRABE/SIt/BLNv6OrRSsBVJakTkUg==
