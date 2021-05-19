@@ -65,7 +65,7 @@ class SmartSwitch extends BasePlugin {
         const response = await this._doRequest(url);
         const cdnList = Utils.Object.getPropertyPath(response, 'smartSwitch.CDNList');
         this.logger.debug('Response returned successfully', cdnList);
-        if (Array.isArray(cdnList)) {
+        if (Array.isArray(cdnList) && cdnList.length > 0) {
           const cdnObj = cdnList[0]['1'];
           this.logger.debug('CDN balancer url is ready', cdnObj.URL);
           resolve(cdnObj.URL);
