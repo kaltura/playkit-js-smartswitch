@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <script src="./playkit-youbora.js"></script>
+  <script src="./playkit-smartswitch.js"></script>
 </head>
 <body>
 <div id="player-placeholder"></div>
@@ -23,8 +23,14 @@
       ]
     },
     plugins: {
-      youbora: {
-        'accountCode': 'powerdev'
+      smartswitch: {
+        accountCode: 'kaltura',
+        originCode: 'vod',
+        responseTimeoutSec: 15,
+        optionalParams: {
+          live: true,
+          extraData: true
+        }
       }
     }
   });
