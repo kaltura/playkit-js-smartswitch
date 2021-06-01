@@ -52,33 +52,32 @@ class SmartSwitch extends BasePlugin {
       this.eventManager.listen(this.player, this.player.Event.Core.SOURCE_SELECTED, (event: FakeEvent) =>
         this._sourceSelectedHandler(event, resolve, reject)
       )
-    );
+    ).catch(err => this.logger.warn(err.message));
   }
 
-  async _sourceSelectedHandler(event: FakeEvent, resolve: Function, reject: Function) {
+  _sourceSelectedHandler(event: FakeEvent, resolve: Function, reject: Function) {
     if (!this._isConfigValid()) {
       reject(new Error('Mandatory params are missing'));
     } else {
-      try {
-        const {url} = event.payload.selectedSource[0];
-        this.logger.debug('Source selected callback handler', url);
-        const response = await this._doRequest(url);
-        const cdnList = Utils.Object.getPropertyPath(response, 'smartSwitch.CDNList');
-        this.logger.debug('Response returned successfully', cdnList);
-        if (Array.isArray(cdnList) && cdnList.length > 0) {
-          const cdnObj = cdnList[0]['1'];
-          this.logger.debug('CDN balancer url is ready', cdnObj.URL);
-          resolve(cdnObj.URL);
-        } else {
-          reject(new Error('Unexpected response'));
-        }
-      } catch (err) {
-        reject(err);
-      }
+      const {url} = event.payload.selectedSource[0];
+      this.logger.debug('Source selected callback handler', url);
+      this._doRequest(url)
+        .then(response => {
+          const cdnList = Utils.Object.getPropertyPath(response, 'smartSwitch.CDNList');
+          this.logger.debug('Response returned successfully', cdnList);
+          if (Array.isArray(cdnList) && cdnList.length > 0) {
+            const cdnObj = cdnList[0]['1'];
+            this.logger.debug('CDN balancer url is ready', cdnObj.URL);
+            resolve(cdnObj.URL);
+          } else {
+            reject(new Error('Unexpected response'));
+          }
+        })
+        .catch(reject);
     }
   }
 
-  async _doRequest(resource: string): Promise<any> {
+  _doRequest(resource: string): Promise<any> {
     const responseTimeoutHandler = () => {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
@@ -92,7 +91,7 @@ class SmartSwitch extends BasePlugin {
       .map(key => key + '=' + encodeURIComponent(params[key]))
       .join('&')}`;
     this.logger.debug('Do request to CDN balancer API', url);
-    return await Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
+    return Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
   }
 
   _isConfigValid(): boolean {

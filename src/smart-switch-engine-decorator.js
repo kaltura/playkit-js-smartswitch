@@ -24,21 +24,24 @@ class SmartSwitchEngineDecorator implements IEngineDecorator {
     return this._active;
   }
 
-  async load(startTime: ?number): Promise<Object> {
-    this._logger.debug('load API');
-    try {
-      const cdnBalancerUrl = await this._plugin.getCdnBalancerUrl();
-      if (cdnBalancerUrl) {
-        this._logger.debug('Set new engine src', cdnBalancerUrl);
-        this._engine.src = cdnBalancerUrl;
-      }
-    } catch (err) {
-      this._logger.warn(err.message);
-    }
-    this._active = false;
-    this._logger.debug(`Set decorator as active: ${this._active.toString()}`);
-    this._logger.debug('Calling engine load');
-    return await this._engine.load(startTime);
+  load(startTime: ?number): Promise<Object> {
+    return new Promise((resolve, reject) => {
+      this._logger.debug('load API');
+      (this._plugin.getCdnBalancerUrl() || Promise.resolve())
+        .then(cdnBalancerUrl => {
+          if (cdnBalancerUrl) {
+            this._logger.debug('Set new engine src', cdnBalancerUrl);
+            this._engine.src = cdnBalancerUrl;
+          }
+        })
+        .catch(err => this._logger.warn(err.message))
+        .finally(() => {
+          this._active = false;
+          this._logger.debug(`Set decorator as active: ${this._active.toString()}`);
+          this._logger.debug('Calling engine load');
+          this._engine.load(startTime).then(resolve, reject);
+        });
+    });
   }
 
   dispatchEvent(event: FakeEvent): boolean {
