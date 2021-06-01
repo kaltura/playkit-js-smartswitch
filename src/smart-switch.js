@@ -78,7 +78,7 @@ class SmartSwitch extends BasePlugin {
     }
   }
 
-  async _doRequest(resource: string): Promise<any> {
+  _doRequest(resource: string): Promise<any> {
     const responseTimeoutHandler = () => {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
@@ -92,7 +92,7 @@ class SmartSwitch extends BasePlugin {
       .map(key => key + '=' + encodeURIComponent(params[key]))
       .join('&')}`;
     this.logger.debug('Do request to CDN balancer API', url);
-    return await Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
+    return Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
   }
 
   _isConfigValid(): boolean {
