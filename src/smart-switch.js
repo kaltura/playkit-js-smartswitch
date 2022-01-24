@@ -54,7 +54,7 @@ class SmartSwitch extends BasePlugin {
       this.eventManager.listen(this.player, this.player.Event.Core.SOURCE_SELECTED, (event: FakeEvent) =>
         this._sourceSelectedHandler(event, resolve, reject)
       )
-    ).catch(err => this.logger.warn(err));
+    ).catch(err => this.logger.error(err));
   }
 
   _sourceSelectedHandler(event: FakeEvent, resolve: Function, reject: Function) {
@@ -65,13 +65,13 @@ class SmartSwitch extends BasePlugin {
       this.logger.debug('Source selected callback handler', url);
       this._doRequest(url)
         .then(response => {
-          const cdnList = Utils.Object.getPropertyPath(response, 'smartSwitch.CDNList');
-          this.logger.debug('Response returned successfully', cdnList);
-          if (Array.isArray(cdnList) && cdnList.length > 0) {
-            const cdnObj = cdnList[0]['1'];
-            if (cdnObj && cdnObj.URL) {
-              this.logger.debug('CDN balancer url is ready', cdnObj.URL);
-              resolve(cdnObj.URL);
+          const providers = response.providers;
+          this.logger.debug('Response returned successfully', providers);
+          if (Array.isArray(providers) && providers.length > 0) {
+            const provider = providers[0];
+            if (provider?.url) {
+              this.logger.debug('CDN balancer url is ready', provider.url);
+              resolve(provider.url);
             } else {
               reject(new Error('Unexpected response'));
             }
