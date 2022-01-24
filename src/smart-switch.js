@@ -88,17 +88,16 @@ class SmartSwitch extends BasePlugin {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
 
-    let url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
-      .replace('{accountCode}', this.config.accountCode)
-      .replace('{application}', this.config.application);
-
-    const params = {
-      resource,
-      ...this.config.optionalParams
-    };
-    url = `${url}?${Object.keys(params)
-      .map(key => key + '=' + encodeURIComponent(params[key]))
+    const queryParams = {resource, ...this.config.optionalParams};
+    const concatenatedQueryParams = `${Object.keys(queryParams)
+      .map(key => key + '=' + encodeURIComponent(queryParams[key]))
       .join('&')}`;
+
+    const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
+      .replace('{accountCode}', this.config.accountCode)
+      .replace('{application}', this.config.application)
+      .concat(`?${concatenatedQueryParams}`);
+
     this.logger.debug('Do request to CDN balancer API', url);
     return Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
   }
