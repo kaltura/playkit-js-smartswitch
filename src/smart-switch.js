@@ -7,6 +7,7 @@ const {Utils, FakeEvent} = core;
 
 class SmartSwitch extends BasePlugin {
   static defaultConfig: Object = {
+    application: 'default',
     responseTimeoutSec: 10,
     optionalParams: {}
   };
@@ -52,7 +53,7 @@ class SmartSwitch extends BasePlugin {
       this.eventManager.listen(this.player, this.player.Event.Core.SOURCE_SELECTED, (event: FakeEvent) =>
         this._sourceSelectedHandler(event, resolve, reject)
       )
-    ).catch(err => this.logger.warn(err.message));
+    ).catch(err => this.logger.warn(err));
   }
 
   _sourceSelectedHandler(event: FakeEvent, resolve: Function, reject: Function) {
@@ -88,7 +89,7 @@ class SmartSwitch extends BasePlugin {
 
     let url = SmartSwitchConfig['CDN_BALANCER_API_ENDPOINT']
       .replace('{accountCode}', this.config.accountCode)
-      .replace('{application}', this.config.application || 'default');
+      .replace('{application}', this.config.application);
 
     const params = {
       resource,
