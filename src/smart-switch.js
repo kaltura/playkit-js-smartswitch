@@ -86,7 +86,10 @@ class SmartSwitch extends BasePlugin {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
 
-    let url = SmartSwitchConfig.CDN_BALANCER_API_ENDPOINT.replace('{accountCode}', this.config.accountCode);
+    let url = SmartSwitchConfig['CDN_BALANCER_API_ENDPOINT']
+      .replace('{accountCode}', this.config.accountCode)
+      .replace('{application}', this.config.application || 'default');
+
     const params = {
       resource,
       ...this.config.optionalParams
