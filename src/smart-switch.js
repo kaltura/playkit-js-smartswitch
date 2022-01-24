@@ -1,12 +1,13 @@
 //@flow
 import {KalturaPlayer, BasePlugin, core} from 'kaltura-player-js';
 import {SmartSwitchEngineDecorator} from './smart-switch-engine-decorator';
-import * as SmartSwitchConfig from './smart-switch.json';
+import * as cdnBalancerApiUrl from './smart-switch.json';
 
 const {Utils, FakeEvent} = core;
 
 class SmartSwitch extends BasePlugin {
-  static defaultConfig: Object = {
+  static defaultConfig: SmartSwitchConfig = {
+    accountCode: '',
     application: 'default',
     responseTimeoutSec: 10,
     optionalParams: {}
@@ -19,7 +20,7 @@ class SmartSwitch extends BasePlugin {
   _cdnBalancerResponsePromise: Promise<string> | null = null;
   _responseTimeoutMs: number;
 
-  constructor(name: string, player: KalturaPlayer, config: Object) {
+  constructor(name: string, player: KalturaPlayer, config: SmartSwitchConfig) {
     super(name, player, config);
     this._responseTimeoutMs = this.config.responseTimeoutSec * 1000;
     this._createCdnBalancerPromise();
@@ -87,7 +88,7 @@ class SmartSwitch extends BasePlugin {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
 
-    let url = SmartSwitchConfig['CDN_BALANCER_API_ENDPOINT']
+    let url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
       .replace('{accountCode}', this.config.accountCode)
       .replace('{application}', this.config.application);
 

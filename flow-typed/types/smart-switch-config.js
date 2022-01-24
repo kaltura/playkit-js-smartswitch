@@ -6,7 +6,7 @@
  * @property {number} responseTimeoutSec - response timeout in seconds.
  * @property {QueryParams} optionalParams - optional query params.
  */
-declare type SmartSwitchConfig = {
+type SmartSwitchConfig = {
   accountCode: string,
   application?: string,
   responseTimeoutSec?: number,
@@ -39,14 +39,14 @@ declare type SmartSwitchConfig = {
    The concatenation result will be:
    token = MD5(accountCode + originCode + resource + nva + nvb + secretKey).
  */
-declare type QueryParams = {
-  originCode: string,
-  ip: string,
-  userAgent: string,
-  live: boolean,
-  protocol: string,
-  extended: boolean,
-  nva: number,
-  nvb: number,
-  token: number
+type QueryParams = {
+  originCode?: string,
+  ip?: string,
+  userAgent?: string,
+  live?: boolean,
+  protocol?: string,
+  extended?: boolean,
+  nva?: number,
+  nvb?: number,
+  token?: number
 };
