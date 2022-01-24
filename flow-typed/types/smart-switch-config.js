@@ -10,7 +10,7 @@ declare type SmartSwitchConfig = {
   accountCode: string,
   application: string,
   responseTimeoutSec?: number,
-  optionalParams?: queryParams
+  optionalParams?: QueryParams
 };
 
 /**
