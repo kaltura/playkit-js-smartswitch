@@ -8,13 +8,14 @@
  */
 declare type SmartSwitchConfig = {
   accountCode: string,
-  application: string,
+  application?: string,
   responseTimeoutSec?: number,
   optionalParams?: QueryParams
 };
 
 /**
  * @typedef QueryParams
+ * @description {@link https://documentation.npaw.com/npaw-integration/reference/get_-accountcode-application-decision}
  * @property {string} originCode - CDN group configured to select a subset of configured CDNs. If not set, the API will use the first configuration as the default.
  * @property {string} ip - End user's IP address.
  * @property {string} userAgent - Client user agent string. URL encoded.
