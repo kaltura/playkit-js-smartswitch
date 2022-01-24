@@ -1,12 +1,14 @@
 //@flow
 import {KalturaPlayer, BasePlugin, core} from 'kaltura-player-js';
 import {SmartSwitchEngineDecorator} from './smart-switch-engine-decorator';
-import * as SmartSwitchConfig from './smart-switch.json';
+import * as cdnBalancerApiUrl from './smart-switch.json';
 
 const {Utils, FakeEvent} = core;
 
 class SmartSwitch extends BasePlugin {
-  static defaultConfig: Object = {
+  static defaultConfig: SmartSwitchConfig = {
+    accountCode: '',
+    application: 'default',
     responseTimeoutSec: 10,
     optionalParams: {}
   };
@@ -18,7 +20,7 @@ class SmartSwitch extends BasePlugin {
   _cdnBalancerResponsePromise: Promise<string> | null = null;
   _responseTimeoutMs: number;
 
-  constructor(name: string, player: KalturaPlayer, config: Object) {
+  constructor(name: string, player: KalturaPlayer, config: SmartSwitchConfig) {
     super(name, player, config);
     this._responseTimeoutMs = this.config.responseTimeoutSec * 1000;
     this._createCdnBalancerPromise();
@@ -52,7 +54,7 @@ class SmartSwitch extends BasePlugin {
       this.eventManager.listen(this.player, this.player.Event.Core.SOURCE_SELECTED, (event: FakeEvent) =>
         this._sourceSelectedHandler(event, resolve, reject)
       )
-    ).catch(err => this.logger.warn(err.message));
+    ).catch(err => this.logger.error(err));
   }
 
   _sourceSelectedHandler(event: FakeEvent, resolve: Function, reject: Function) {
@@ -63,13 +65,13 @@ class SmartSwitch extends BasePlugin {
       this.logger.debug('Source selected callback handler', url);
       this._doRequest(url)
         .then(response => {
-          const cdnList = Utils.Object.getPropertyPath(response, 'smartSwitch.CDNList');
-          this.logger.debug('Response returned successfully', cdnList);
-          if (Array.isArray(cdnList) && cdnList.length > 0) {
-            const cdnObj = cdnList[0]['1'];
-            if (cdnObj && cdnObj.URL) {
-              this.logger.debug('CDN balancer url is ready', cdnObj.URL);
-              resolve(cdnObj.URL);
+          const providers = response.providers;
+          this.logger.debug('Response returned successfully', providers);
+          if (Array.isArray(providers) && providers.length > 0) {
+            const provider = providers[0];
+            if (provider?.url) {
+              this.logger.debug('CDN balancer url is ready', provider.url);
+              resolve(provider.url);
             } else {
               reject(new Error('Unexpected response'));
             }
@@ -85,21 +87,23 @@ class SmartSwitch extends BasePlugin {
     const responseTimeoutHandler = () => {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
-    const params = {
-      accountCode: this.config.accountCode,
-      originCode: this.config.originCode,
-      resource,
-      ...this.config.optionalParams
-    };
-    const url = `${SmartSwitchConfig.CDN_BALANCER_API_ENDPOINT}?${Object.keys(params)
-      .map(key => key + '=' + encodeURIComponent(params[key]))
+
+    const queryParams = {resource, ...this.config.optionalParams};
+    const concatenatedQueryParams = `${Object.keys(queryParams)
+      .map(key => key + '=' + encodeURIComponent(queryParams[key]))
       .join('&')}`;
+
+    const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
+      .replace('{accountCode}', this.config.accountCode)
+      .replace('{application}', this.config.application)
+      .concat(`?${concatenatedQueryParams}`);
+
     this.logger.debug('Do request to CDN balancer API', url);
     return Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
   }
 
   _isConfigValid(): boolean {
-    return this.config.accountCode && this.config.originCode;
+    return this.config.accountCode;
   }
 }
 
