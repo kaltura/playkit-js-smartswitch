@@ -99,7 +99,7 @@ class SmartSwitch extends BasePlugin {
   }
 
   _isConfigValid(): boolean {
-    return this.config.accountCode && this.config.originCode;
+    return this.config.accountCode;
   }
 }
 
