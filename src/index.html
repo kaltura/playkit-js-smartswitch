@@ -1,40 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="./playkit-smartswitch.js"></script>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'>
+  <title>smartswitch</title>
+  <link rel='stylesheet' type='text/css' href='./style.css' />
+  <script src="https://cdnapisec.kaltura.com/p/2215841/embedPlaykitJs/uiconf_id/42237501/"></script>
+  <script src='./playkit-smartswitch.js' type='text/javascript'></script>
 </head>
 <body>
-<div id="player-placeholder"></div>
+<div id="player-placeholder" style="width: 640px; height: 360px;"></div>
 <script>
-  window.p = Playkit.loadPlayer('player-placeholder', {
-    sources: {
-      "progressive": [
-        {
-          "url": "http://deslasexta.antena3.com/mp_series1/2012/09/10/00001.mp4",
-          "mimetype": "video/mp4",
-          "id": "id1",
-          "width": 200,
-          "height": 100,
-          "bandwidth": 100000,
-          "label": "label1"
-        }
-      ]
+  var config = {
+    logLevel: "DEBUG",
+    targetId: "player-placeholder",
+    provider: {
+      "partnerId": "2215841",
+      "uiConfId": "42237501"
     },
     plugins: {
       smartswitch: {
         accountCode: 'kaltura',
-        application: 'default',
+        application: 'NPAW test',
         responseTimeoutSec: 15,
         optionalParams: {
+          protocol: 'hls',
+          extended: true,
           originCode: 'default',
           live: false,
         }
       }
     }
-  });
-  window.p.play();
+  };
+
+  try {
+    const kalturaPlayer = KalturaPlayer.setup(config);
+    kalturaPlayer.setMedia({
+      sources:{
+        hls: [
+          {
+            url:'https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8',
+            mimetype: 'application/x-mpegURL'
+          }
+        ]
+      }
+    });
+  } catch (e) {
+    console.error(e.message);
+  }
 </script>
 </body>
 </html>
