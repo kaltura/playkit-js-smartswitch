@@ -10,7 +10,7 @@ class SmartSwitch extends BasePlugin {
     accountCode: '',
     application: 'default',
     responseTimeoutSec: 10,
-    optionalParams: {},
+    optionalParams: {}
   };
 
   static isValid(): boolean {
@@ -119,7 +119,7 @@ class SmartSwitch extends BasePlugin {
       return false;
     }
     return true;
-  };
+  }
 }
 
 export {SmartSwitch};
