@@ -94,8 +94,7 @@ class SmartSwitch extends BasePlugin {
       .map(key => key + '=' + encodeURIComponent(queryParams[key]))
       .join('&')}`;
 
-    const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT'];
-    url
+    const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
       .replace('{domainUrl}', this.config.domainUrl)
       .replace('{accountCode}', this.config.accountCode)
       .replace('{application}', this.config.application)
