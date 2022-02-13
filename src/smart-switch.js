@@ -10,7 +10,8 @@ class SmartSwitch extends BasePlugin {
     accountCode: '',
     application: 'default',
     responseTimeoutSec: 10,
-    optionalParams: {}
+    optionalParams: {},
+    domainUrl: 'https://api.gbnpaw.com'
   };
 
   static isValid(): boolean {
@@ -93,12 +94,9 @@ class SmartSwitch extends BasePlugin {
       .map(key => key + '=' + encodeURIComponent(queryParams[key]))
       .join('&')}`;
 
-    let url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT'];
-    if (this._isValidUrl(this.config.domainUrl)) {
-      url = url.replace('https://api.gbnpaw.com', this.config.domainUrl);
-    }
-
-    url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
+    const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT'];
+    url
+      .replace('{domainUrl}', this.config.domainUrl)
       .replace('{accountCode}', this.config.accountCode)
       .replace('{application}', this.config.application)
       .concat(`?${concatenatedQueryParams}`);
@@ -109,16 +107,6 @@ class SmartSwitch extends BasePlugin {
 
   _isConfigValid(): boolean {
     return this.config.accountCode;
-  }
-
-  _isValidUrl(url: string): boolean {
-    try {
-      new URL(url);
-    } catch (e) {
-      this.logger.error(e);
-      return false;
-    }
-    return true;
   }
 }
 

@@ -5,7 +5,7 @@
  * @property {string} application - The application code configured in the UI.
  * @property {number} responseTimeoutSec - response timeout in seconds.
  * @property {QueryParams} optionalParams - optional query params.
- * @property {string} domainUrl - optional alternative domain, default = api.gbnpaw.com.
+ * @property {string} domainUrl - optional alternative domain, default = https://api.gbnpaw.com.
  */
 type SmartSwitchConfig = {
   accountCode: string,
