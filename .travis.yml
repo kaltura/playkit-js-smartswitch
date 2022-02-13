@@ -8,7 +8,6 @@ env:
   global:
     - NODE_OPTIONS="--openssl-legacy-provider"
 
-
 addons:
   chrome: stable
 
@@ -37,7 +36,7 @@ jobs:
   include:
     # https://docs.travis-ci.com/user/build-stages/deploy-github-releases/
     - stage: Deploy
-      name: "Deploying a new version"
+      name: 'Deploying a new version'
       if: tag IS present
       env: TRAVIS_MODE=deploy
       deploy:

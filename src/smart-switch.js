@@ -10,7 +10,8 @@ class SmartSwitch extends BasePlugin {
     accountCode: '',
     application: 'default',
     responseTimeoutSec: 10,
-    optionalParams: {}
+    optionalParams: {},
+    domainUrl: 'https://api.gbnpaw.com'
   };
 
   static isValid(): boolean {
@@ -94,6 +95,7 @@ class SmartSwitch extends BasePlugin {
       .join('&')}`;
 
     const url = cdnBalancerApiUrl['CDN_BALANCER_API_ENDPOINT']
+      .replace('{domainUrl}', this.config.domainUrl)
       .replace('{accountCode}', this.config.accountCode)
       .replace('{application}', this.config.application)
       .concat(`?${concatenatedQueryParams}`);
