@@ -11,7 +11,8 @@ class SmartSwitch extends BasePlugin {
     application: 'default',
     responseTimeoutSec: 10,
     optionalParams: {},
-    domainUrl: 'https://api.gbnpaw.com'
+    domainUrl: 'https://api.gbnpaw.com',
+    followRedirects: false
   };
 
   static isValid(): boolean {
@@ -84,10 +85,14 @@ class SmartSwitch extends BasePlugin {
     }
   }
 
-  _doRequest(resource: string): Promise<any> {
+  async _doRequest(resource: string): Promise<any> {
     const responseTimeoutHandler = () => {
       this.logger.warn(`Timeout reached ${this.config.responseTimeoutSec} seconds, loading original source`);
     };
+
+    if (this.config.followRedirects) {
+      resource = await this._extractResource(resource);
+    }
 
     const queryParams = {resource, ...this.config.optionalParams};
     const concatenatedQueryParams = `${Object.keys(queryParams)
@@ -102,6 +107,12 @@ class SmartSwitch extends BasePlugin {
 
     this.logger.debug('Do request to CDN balancer API', url);
     return Utils.Http.execute(url, null, 'GET', null, this._responseTimeoutMs, responseTimeoutHandler);
+  }
+
+  async _extractResource(resourceUrl: string) {
+    const data = await fetch(resourceUrl);
+    console.log(data);
+    return data.url;
   }
 
   _isConfigValid(): boolean {
