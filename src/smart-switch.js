@@ -111,7 +111,6 @@ class SmartSwitch extends BasePlugin {
 
   async _extractResource(resourceUrl: string) {
     const data = await fetch(resourceUrl);
-    console.log(data);
     return data.url;
   }
 
