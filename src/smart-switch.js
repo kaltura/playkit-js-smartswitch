@@ -25,7 +25,6 @@ class SmartSwitch extends BasePlugin {
   constructor(name: string, player: KalturaPlayer, config: SmartSwitchConfig) {
     super(name, player, config);
     this._responseTimeoutMs = this.config.responseTimeoutSec * 1000;
-    this._createCdnBalancerPromise();
   }
 
   getEngineDecorator(engine: IEngine): IEngineDecorator {
