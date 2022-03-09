@@ -13,10 +13,10 @@ let plugins = [
 
 module.exports = {
   context: __dirname + '/src',
-  entry: {'playkit-smartswitch': 'index.js'},
+  entry: ['whatwg-fetch', 'index.js'],
   output: {
     path: __dirname + '/dist',
-    filename: '[name].js',
+    filename: 'playkit-smartswitch.js',
     library: ['KalturaPlayer', 'plugins', 'smartswitch'],
     devtoolModuleFilenameTemplate: './smartswitch/[resource-path]'
   },

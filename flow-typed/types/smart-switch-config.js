@@ -12,7 +12,8 @@ type SmartSwitchConfig = {
   application?: string,
   responseTimeoutSec?: number,
   optionalParams?: QueryParams,
-  domainUrl?: string
+  domainUrl?: string,
+  followRedirects?: boolean
 };
 
 /**
