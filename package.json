@@ -1,6 +1,6 @@
 {
   "name": "@playkit-js/playkit-js-smartswitch",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "keywords": [
     "kaltura",
     "NPAW",
@@ -103,6 +103,5 @@
   "kcc": {
     "name": "playkit-smartswitch"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

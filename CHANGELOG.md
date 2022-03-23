@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/kaltura/playkit-js-smartswitch/compare/v0.1.1...v0.2.0) (2022-03-23)
+
+
+### Bug Fixes
+
+* **FEC-12045:** CDN balancer service called twice ([#8](https://github.com/kaltura/playkit-js-smartswitch/issues/8)) ([86a263b](https://github.com/kaltura/playkit-js-smartswitch/commit/86a263b))
+
+
+### Features
+
+* **FEC-12037:** [SmartSwitch] Mediacorp Multi CDN POC add mainfest redirect config ([#7](https://github.com/kaltura/playkit-js-smartswitch/issues/7)) ([e2d6a0e](https://github.com/kaltura/playkit-js-smartswitch/commit/e2d6a0e))
+
+
+
 ### [0.1.1](https://github.com/kaltura/playkit-js-smartswitch/compare/v0.1.0...v0.1.1) (2022-02-16)
 
 
