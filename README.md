@@ -17,7 +17,7 @@ the API will return an ordered list of CDNs. Then the Kaltura Player `smart-swit
 
 ### Error Handling
 
-SmartSwitch errors are handled internally be the plugin and playback will start with the original playback url 
+SmartSwitch errors are handled internally by the plugin and playback will start with the original playback url 
 
 
 ### Registering to Events
