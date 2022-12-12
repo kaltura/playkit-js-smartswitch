@@ -2,7 +2,7 @@
 
 Kaltura Player *CDN Balancer* JS plugin for NPAW Smart Switch
 
-The `playkit-smartswitch` plugin is built upon Kaltura Player and Youbora CDN Balancer soluiton. 
+The `playkit-smartswitch` plugin is built upon Kaltura Player and Youbora CDN Balancer solution. 
 
 #### NPAN Referance:
 [cdn-balancer](https://documentation.npaw.com/product-guides/docs/cdn-balancer)
