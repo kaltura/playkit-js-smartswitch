@@ -27,7 +27,7 @@ TBD
 
 ### Plugin Config
 
-* Make sure your player id is confiured to bundle the playkit-smartswitch: "playkit-smartswitch":"{latest}"
+* Make sure your player id is configured to bundle the playkit-smartswitch: "playkit-smartswitch":"{latest}"
 
 #### default config
 
