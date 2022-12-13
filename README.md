@@ -32,13 +32,13 @@ TBD
 #### default config
 
 ```
-smartswitch: {
-    accountCode: '',
-    application: 'default',
-    responseTimeoutSec: 10,
-    optionalParams: {},
-    domainUrl: 'https://api.gbnpaw.com',
-    followRedirects: false
+"smartswitch": {
+    "accountCode": "",
+    "application": "default",
+    "responseTimeoutSec": 10,
+    "optionalParams": {},
+    "domainUrl": "https://api.gbnpaw.com",
+    "followRedirects": false
   }
 ```
 
@@ -51,19 +51,19 @@ Example:
 ```
 "plugins": { 
      "smartswitch": {
-        "domainUrl: "https://api.gbnpaw.com"
-        "accountCode: "YOUR_ACCOUNT", // Replace with your YOUBORA account.
+        "domainUrl": "https://api.gbnpaw.com"
+        "accountCode": "YOUR_ACCOUNT", // Replace with your YOUBORA account.
         "application": "KLTR test",
         "responseTimeoutSec": 15,
         "followRedirects": true,
          "optionalParams": {
-          "protocol": 'hls',
+          "protocol": "hls",
           "extended": true,
-          "originCode": 'default',
+          "originCode": "default",
           "live": false,
-          "nva": '',
-          "nvb": '',
-          "token": '',
+          "nva": "",
+          "nvb": "',
+          "token": "",
           "dynamicRules": {}
         }
     }
