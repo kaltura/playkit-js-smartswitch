@@ -62,7 +62,7 @@ Example:
           "originCode": "default",
           "live": false,
           "nva": "",
-          "nvb": "',
+          "nvb": "",
           "token": "",
           "dynamicRules": {}
         }
