@@ -46,23 +46,25 @@ smartswitch: {
 Example:
 "playkit-smartswitch":"0.2.0"
 
+
+#### Example - (optionalParams below are for example purpose only)
 ```
-plugins: { 
-     smartswitch: {
-        domainUrl: 'https://api.gbnpaw.com'
-        accountCode: 'YOUR_ACCOUNT', // Replace with your YOUBORA account.
-        application: 'KLTR test',
-        responseTimeoutSec: 15,
-        followRedirects: true,
-        optionalParams: {
-          protocol: 'hls',
-          extended: true,
-          originCode: 'default',
-          live: false,
-          //nva: '',
-          //nvb: '',
-          //token: '',
-          //dynamicRules: ''
+"plugins": { 
+     "smartswitch": {
+        "domainUrl: "https://api.gbnpaw.com"
+        "accountCode: "YOUR_ACCOUNT", // Replace with your YOUBORA account.
+        "application": "KLTR test",
+        "responseTimeoutSec": 15,
+        "followRedirects": true,
+         "optionalParams": {
+          "protocol": 'hls',
+          "extended": true,
+          "originCode": 'default',
+          "live": false,
+          "nva": '',
+          "nvb": '',
+          "token": '',
+          "dynamicRules": {}
         }
     }
 }
