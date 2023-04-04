@@ -3,11 +3,15 @@ name: Player And Plugin Tests
 run-name: Player And Plugin Tests
 
 on:
-  push:
+  pull_request:
     branches:
-      - devops-deployment
+      - "*"
 
 jobs:
+  notification:
+    uses: kaltura/ovp-pipelines-pub/.github/workflows/notification.yaml@master
+    secrets:
+      PLAYER_MSTEAMS_WEBHOOK: ${{ secrets.PLAYER_MSTEAMS_WEBHOOK }}
   running-tests:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_tests.yaml@master
     with:
