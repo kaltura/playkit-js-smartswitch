@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  accept-prod:
+    runs-on: ubuntu-latest
+    name: Accept Prod
+    environment: Prod
   canary-full-flow:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
-    environment: Prod
+    needs: accept-prod
     secrets:
       PLAYER_CENTRAL_ACCOUNT_ID: ${{ secrets.PLAYER_CENTRAL_ACCOUNT_ID }}
       PLAYER_SERVICES_ACCOUNT_ID: ${{ secrets.PLAYER_SERVICES_ACCOUNT_ID }}
