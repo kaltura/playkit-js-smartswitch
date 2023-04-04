@@ -9,9 +9,8 @@ on:
 
 jobs:
   running-tests:
-    uses: kaltura/ovp-pipelines-pub/.github/workflows/player_tests.yaml@fix-uiconf-deploy
+    uses: kaltura/ovp-pipelines-pub/.github/workflows/player_tests.yaml@master
     secrets:
       PLAYER_MSTEAMS_WEBHOOK: ${{ secrets.PLAYER_MSTEAMS_WEBHOOK }}
     with:
       yarn-run-to-execute: 'eslint flow test'
-
