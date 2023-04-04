@@ -10,9 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     name: Accept Prod
     environment: Prod
+    outputs:
+      accept-prod: ${{ steps.accept-prod.outputs.accept-prod }}
+    steps:
+      - id: accept-prod
+        run: |
+          echo "accept-prod=true" >> $GITHUB_OUTPUT
   canary-full-flow:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
     needs: accept-prod
+    if: ${{ needs.accept-prod.outputs.accept-prod == 'true' }}
     secrets:
       PLAYER_CENTRAL_ACCOUNT_ID: ${{ secrets.PLAYER_CENTRAL_ACCOUNT_ID }}
       PLAYER_SERVICES_ACCOUNT_ID: ${{ secrets.PLAYER_SERVICES_ACCOUNT_ID }}
