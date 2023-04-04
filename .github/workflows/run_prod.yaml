@@ -1,4 +1,4 @@
-## CI/CD
+## CI
 name: Prod
 run-name: Prod
 
@@ -10,16 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Accept Prod
     environment: Prod
-    outputs:
-      accept-prod: ${{ steps.accept-prod.outputs.accept-prod }}
     steps:
-      - id: accept-prod
+      - name: accept workflow on prod
         run: |
-          echo "accept-prod=true" >> $GITHUB_OUTPUT
+          echo "accepted"
   canary-full-flow:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
     needs: accept-prod
-    if: ${{ needs.accept-prod.outputs.accept-prod == 'true' }}
     secrets:
       PLAYER_CENTRAL_ACCOUNT_ID: ${{ secrets.PLAYER_CENTRAL_ACCOUNT_ID }}
       PLAYER_SERVICES_ACCOUNT_ID: ${{ secrets.PLAYER_SERVICES_ACCOUNT_ID }}
@@ -33,4 +30,3 @@ jobs:
       env: "prod"
       schema-type: "playerV3Versions"
       tests-yarn-run-to-execute: 'eslint flow test'
-
