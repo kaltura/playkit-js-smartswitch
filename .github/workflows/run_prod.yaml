@@ -6,14 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  accept-prod:
-    runs-on: ubuntu-latest
-    name: Accept Prod
-    environment: Prod
-    steps:
-      - name: accept workflow on prod
-        run: |
-          echo "accepted"
   canary-full-flow:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
     needs: accept-prod
