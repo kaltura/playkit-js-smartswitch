@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  canary-full-flow:
+  prod:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
     secrets:
       PLAYER_CENTRAL_ACCOUNT_ID: ${{ secrets.PLAYER_CENTRAL_ACCOUNT_ID }}
@@ -16,6 +16,7 @@ jobs:
       PLAYER_NPM_TOKEN: ${{ secrets.PLAYER_NPM_TOKEN }}
       PLAYER_LAMBDA_NAME: ${{ secrets.PLAYER_LAMBDA_NAME }}
       PLAYER_MSTEAMS_WEBHOOK: ${{ secrets.PLAYER_MSTEAMS_WEBHOOK }}
+      PLAYER_GITHUB_BOT_TOKEN: ${{ secrets.PLAYER_GITHUB_BOT_TOKEN }}
     with:
       type: "plugin"
       env: "prod"
