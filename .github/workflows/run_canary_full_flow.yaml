@@ -3,14 +3,13 @@ name: Canary Full Flow
 run-name: Canary Full Flow
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - master
 
 jobs:
   canary-full-flow:
+    if: github.event.pull_request.merged == true
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_cicd.yaml@master
     secrets:
       PLAYER_CENTRAL_ACCOUNT_ID: ${{ secrets.PLAYER_CENTRAL_ACCOUNT_ID }}
