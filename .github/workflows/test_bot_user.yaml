@@ -1,0 +1,28 @@
+## CI/CD
+name: TEST
+
+on:
+  push:
+    branches:
+      - devops-deployment
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PLAYER_GITHUB_BOT_TOKEN }}
+
+      - name: show actor
+        run: |
+          echo "${{ github.actor }}"
+
+      - name: test space
+        run: |
+          touch dor-test.txt
+          git commit -a -m "dor test"
+          git push origin devops-deployment
+
+
