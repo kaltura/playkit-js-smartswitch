@@ -21,6 +21,8 @@ jobs:
 
       - name: test space
         run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           touch dor-test.txt
           git commit -a -m "dor test"
           git push origin devops-deployment
