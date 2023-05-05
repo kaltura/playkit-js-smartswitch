@@ -1,4 +1,11 @@
-# playkit-js-smartSwitch
+# PlayKit JS SmartSwitch - SmartSwitch plugin for the [PlayKit JS Player]
+
+* playkit-js-smartSwitch
+
+[![Build Status](https://github.com/kaltura/playkit-js-smartswitch/actions/workflows/run_canary_full_flow.yaml/badge.svg)](https://github.com/kaltura/playkit-js-smartswitch/actions/workflows/run_canary_full_flow.yaml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![](https://img.shields.io/npm/v/@playkit-js/playkit-js-smartswitch/latest.svg)](https://www.npmjs.com/package/@playkit-js/playkit-js-smartswitch)
+[![](https://img.shields.io/npm/v/@playkit-js/playkit-js-smartswitch/canary.svg)](https://www.npmjs.com/package/@playkit-js/playkit-js-smartswitch/v/canary)
 
 Kaltura Player *CDN Balancer* JS plugin for NPAW Smart Switch
 
