@@ -1,5 +1,5 @@
 //@flow
-import {KalturaPlayer, BasePlugin, core} from 'kaltura-player-js';
+import {KalturaPlayer, BasePlugin, core} from '@playkit-js/kaltura-player-js';
 import {SmartSwitchEngineDecorator} from './smart-switch-engine-decorator';
 import * as cdnBalancerApiUrl from './smart-switch.json';
 
