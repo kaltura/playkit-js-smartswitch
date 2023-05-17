@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.6 (2023-05-17)
+
+
+### Bug Fixes
+
+* **FEC-13123:** replace travis with github actions ([#28](https://github.com/kaltura/playkit-js-smartswitch/issues/28)) ([45a88a4](https://github.com/kaltura/playkit-js-smartswitch/commit/45a88a4))
+
+
+
 ### 0.2.5 (2023-04-10)
 
 
