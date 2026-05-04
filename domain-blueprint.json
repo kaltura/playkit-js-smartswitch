@@ -1,0 +1,128 @@
+{
+  "repositoryName": "playkit-js-smartswitch",
+  "version": "1.0.0",
+  "lastUpdated": "2026-05-04",
+  "coreResponsibility": {
+    "summary": "A Kaltura Player plugin that integrates NPAW's Youbora CDN Balancer (SmartSwitch) to dynamically select the optimal CDN for video playback based on real-time network conditions and CDN performance metrics.",
+    "type": "Plugin",
+    "category": "CDN Optimization / Quality of Experience (QoE)"
+  },
+  "domainAndLogicOwnership": {
+    "featureOwnership": [
+      "CDN balancing and selection",
+      "Youbora SmartSwitch API integration",
+      "Dynamic playback URL substitution",
+      "CDN provider ranking and selection",
+      "Playback URL redirect resolution",
+      "Response timeout handling for CDN decisions"
+    ],
+    "dataHandling": [
+      "CDN balancer API response parsing (providers list with URLs and scores)",
+      "Playback source URL transformation",
+      "SmartSwitch configuration state (accountCode, application, domainUrl, optionalParams)",
+      "CDN decision promise lifecycle management"
+    ]
+  },
+  "integrationPoints": {
+    "upstream": [
+      {
+        "name": "NPAW Youbora CDN Balancer API",
+        "description": "External API that returns ranked CDN providers based on the playback resource URL",
+        "endpoint": "{domainUrl}/{accountCode}/{application}/decision"
+      },
+      {
+        "name": "Kaltura Backend / Entry Provider",
+        "description": "Provides the original playback source URLs via SOURCE_SELECTED event"
+      }
+    ],
+    "downstream": [
+      {
+        "name": "playkit-js / kaltura-player-js",
+        "description": "Core player engine that consumes the CDN-optimized playback URL"
+      },
+      {
+        "name": "Video playback engines (HLS.js, Shaka Player, etc.)",
+        "description": "Receives the modified source URL for actual media loading"
+      }
+    ],
+    "externalApis": [
+      {
+        "name": "NPAW Youbora SmartSwitch API",
+        "type": "REST API",
+        "defaultDomain": "https://api.gbnpaw.com",
+        "documentation": "https://documentation.npaw.com/integration-docs/docs/js-cdn-balancer-integration"
+      }
+    ]
+  },
+  "technicalStack": {
+    "primaryLanguages": ["JavaScript (ES6+)", "Flow (static typing)"],
+    "frameworks": ["PlayKit JS Plugin Framework", "Kaltura Player JS"],
+    "buildTools": ["Webpack", "Babel"],
+    "testingTools": ["Karma", "Mocha", "Chai", "Sinon"],
+    "entryPoints": [
+      {
+        "file": "src/index.js",
+        "description": "Plugin registration entry point - registers 'smartswitch' plugin with Kaltura Player"
+      },
+      {
+        "file": "src/smart-switch.js",
+        "description": "Core plugin class extending BasePlugin - handles CDN balancer API calls and configuration"
+      },
+      {
+        "file": "src/smart-switch-engine-decorator.js",
+        "description": "Engine decorator that intercepts load() to substitute CDN-optimized URLs"
+      }
+    ],
+    "configurationFiles": [
+      {
+        "file": "src/smart-switch.json",
+        "description": "CDN Balancer API endpoint template"
+      },
+      {
+        "file": "flow-typed/types/smart-switch-config.js",
+        "description": "TypeScript/Flow type definitions for plugin configuration"
+      }
+    ]
+  },
+  "triageKeywords": [
+    "smartswitch",
+    "smart-switch",
+    "CDN balancer",
+    "CDN selection",
+    "NPAW",
+    "Youbora",
+    "gbnpaw.com",
+    "accountCode",
+    "CDN provider",
+    "SmartSwitchEngineDecorator",
+    "responseTimeoutSec",
+    "SOURCE_SELECTED",
+    "CDN balancer url",
+    "followRedirects",
+    "CDN optimization"
+  ],
+  "errorPatterns": [
+    "Mandatory params are missing",
+    "Unexpected response",
+    "Timeout reached * seconds, loading original source",
+    "SmartSwitchEngineDecorator",
+    "CDN balancer promise"
+  ],
+  "configurationSchema": {
+    "pluginName": "smartswitch",
+    "requiredParams": ["accountCode"],
+    "optionalParams": [
+      "application",
+      "responseTimeoutSec",
+      "optionalParams",
+      "domainUrl",
+      "followRedirects"
+    ],
+    "defaults": {
+      "application": "default",
+      "responseTimeoutSec": 10,
+      "domainUrl": "https://api.gbnpaw.com",
+      "followRedirects": false
+    }
+  }
+}
